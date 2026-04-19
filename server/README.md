@@ -37,7 +37,7 @@ JWT_ACCESS_SECRET=your_super_secret_access_key
 JWT_REFRESH_SECRET=your_super_secret_refresh_key
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
-CLIENT_URL=https://edicto.onrender.com
+CLIENT_URL=https://e-dicto.vercel.app
 BCRYPT_SALT_ROUNDS=12
 ```
 
