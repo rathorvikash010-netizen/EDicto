@@ -1,0 +1,22 @@
+{
+  "name": "Edicto — Master Words, Elevate Your Mind",
+  "short_name": "Edicto",
+  "description": "A premium vocabulary learning platform with daily words, quizzes, and spaced repetition.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0D1E",
+  "theme_color": "#7B2FF2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
