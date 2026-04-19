@@ -3,7 +3,7 @@
  * Manages access token and auto-refresh on 401.
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://edicto.onrender.com/api';
 
 let accessToken = null;
 let refreshPromise = null; // Prevents multiple simultaneous refresh calls

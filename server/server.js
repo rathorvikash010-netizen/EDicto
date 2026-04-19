@@ -92,6 +92,6 @@ connectDB().then(async () => {
 
   app.listen(PORT, () => {
     console.log(`\n🚀 Edicto API running on port ${PORT} [${env.NODE_ENV}]`);
-    console.log(`   http://localhost:${PORT}/api/health\n`);
+    console.log(`   https://edicto.onrender.com/api/health\n`);
   });
 });

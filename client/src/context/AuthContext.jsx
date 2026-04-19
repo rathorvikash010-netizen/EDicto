@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
 
   const restoreSession = async () => {
     try {
-      const refreshRes = await fetch('http://localhost:5001/api/auth/refresh', {
+      const refreshRes = await fetch('https://edicto.onrender.com/api/auth/refresh', {
         method: 'POST',
         credentials: 'include',
       });

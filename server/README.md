@@ -32,12 +32,12 @@ Edit `.env` with your values:
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/edicto
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/edicto
 JWT_ACCESS_SECRET=your_super_secret_access_key
 JWT_REFRESH_SECRET=your_super_secret_refresh_key
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=https://edicto.onrender.com
 BCRYPT_SALT_ROUNDS=12
 ```
 
@@ -48,19 +48,19 @@ npm run dev     # Development (with nodemon)
 npm start       # Production
 ```
 
-Server runs at `http://localhost:5000`
+Server runs at `https://edicto.onrender.com`
 
 ### 4. Add words (fetched live from Free Dictionary API)
 
 ```bash
 # Add a single word
-curl -X POST http://localhost:5000/api/words \
+curl -X POST https://edicto.onrender.com/api/words \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <accessToken>" \
   -d '{"word": "ephemeral", "category": "GRE", "difficulty": 3}'
 
 # Add multiple words at once
-curl -X POST http://localhost:5000/api/words/bulk \
+curl -X POST https://edicto.onrender.com/api/words/bulk \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <accessToken>" \
   -d '{"words": [
@@ -181,14 +181,14 @@ Error responses:
 
 ### Register
 ```bash
-curl -X POST http://localhost:5000/api/auth/register \
+curl -X POST https://edicto.onrender.com/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"name": "Steve", "email": "steve@example.com", "password": "password123"}'
 ```
 
 ### Login
 ```bash
-curl -X POST http://localhost:5000/api/auth/login \
+curl -X POST https://edicto.onrender.com/api/auth/login \
   -H "Content-Type: application/json" \
   -c cookies.txt \
   -d '{"email": "steve@example.com", "password": "password123"}'
@@ -196,18 +196,18 @@ curl -X POST http://localhost:5000/api/auth/login \
 
 ### Get words
 ```bash
-curl http://localhost:5000/api/words?category=GRE&difficulty=3&page=1&limit=10
+curl https://edicto.onrender.com/api/words?category=GRE&difficulty=3&page=1&limit=10
 ```
 
 ### Bookmark a word (use token from login response)
 ```bash
-curl -X POST http://localhost:5000/api/bookmarks/<wordId> \
+curl -X POST https://edicto.onrender.com/api/bookmarks/<wordId> \
   -H "Authorization: Bearer <accessToken>"
 ```
 
 ### Refresh token
 ```bash
-curl -X POST http://localhost:5000/api/auth/refresh \
+curl -X POST https://edicto.onrender.com/api/auth/refresh \
   -b cookies.txt
 ```
 

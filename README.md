@@ -96,7 +96,7 @@ JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
 # ========== CORS ==========
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=https://edicto.onrender.com
 
 # ========== BCRYPT ==========
 BCRYPT_SALT_ROUNDS=12
@@ -105,7 +105,7 @@ BCRYPT_SALT_ROUNDS=12
 **Client (`client/.env`)**
 ```env
 # API URL for Vite
-VITE_API_URL=http://localhost:5001/api
+VITE_API_URL=https://edicto.onrender.com/api
 ```
 
 ### 3. Run the Application Localy
@@ -115,13 +115,13 @@ You need to run both the Client and the Server simultaneously.
 **Start the Server (in the `server/` directory):**
 ```bash
 npm run dev
-# The backend will run silently on http://localhost:5001
+# The backend will run on https://edicto.onrender.com
 ```
 
 **Start the Client (in the `client/` directory):**
 ```bash
 npm run dev
-# Vite will quickly boot the frontend at http://localhost:5173
+# Vite will quickly boot the frontend at https://edicto.onrender.com
 ```
 
 
