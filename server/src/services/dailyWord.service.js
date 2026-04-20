@@ -46,12 +46,12 @@ async function fetchAndStoreDailyWords() {
       nextBatchIndex: 0,
       lastFetchDate: '',
     });
-    console.log('📋 Created new FetchState tracker');
+    console.log('[INFO] Created new FetchState tracker');
   }
 
   if (state.lastFetchDate === today) {
     const currentCount = await DailyWord.countDocuments();
-    console.log(`\n✅ Already fetched today's words (${today}). ${currentCount} total words in DB. Skipping.\n`);
+    console.log(`\n[OK] Already fetched today's words (${today}). ${currentCount} total words in DB. Skipping.\n`);
     return;
   }
 
@@ -63,7 +63,7 @@ async function fetchAndStoreDailyWords() {
   // Load all words currently in DailyWord collection to check for duplicates
   const existingDailyWords = await DailyWord.find().select('word').lean();
   const existingSet = new Set(existingDailyWords.map((w) => w.word.toLowerCase()));
-  console.log(`   🔍 ${existingSet.size} words currently in DB — will skip duplicates`);
+  console.log(`   [SCAN] ${existingSet.size} words currently in DB -- will skip duplicates`);
 
   // Build the batch by scanning through the list, skipping words already in DB
   const toFetch = [];
@@ -83,7 +83,7 @@ async function fetchAndStoreDailyWords() {
   }
 
   if (toFetch.length === 0) {
-    console.log('⚠️  All words from the list are already in DB. No new words to fetch.');
+    console.log('[WARN] All words from the list are already in DB. No new words to fetch.');
     // Still update lastFetchDate so we don't retry endlessly
     state.lastFetchDate = today;
     await state.save();
@@ -91,13 +91,13 @@ async function fetchAndStoreDailyWords() {
   }
 
   if (toFetch.length < batchSize) {
-    console.log(`⚠️  Only ${toFetch.length} unique words available (${batchSize - toFetch.length} were duplicates)`);
+    console.log(`[WARN] Only ${toFetch.length} unique words available (${batchSize - toFetch.length} were duplicates)`);
   }
 
   // Update nextBatchIndex to where we stopped scanning
   const newNextIndex = currentIndex % listLength;
 
-  console.log(`\n📥 Fetching Day's batch: ${toFetch.length} words from Free Dictionary API...`);
+  console.log(`\n[FETCH] Day's batch: ${toFetch.length} words from Free Dictionary API...`);
   console.log(`   FetchDay: ${today} | Starting at WORD_LIST[${startIndex}]`);
   console.log(`   Words will expire on: ${getExpiryDate(today)}\n`);
 
@@ -117,7 +117,7 @@ async function fetchAndStoreDailyWords() {
       });
 
       if (result.error) {
-        console.log(`${progress} ⚠️  ${meta.word}: ${result.error}`);
+        console.log(`${progress} [WARN] ${meta.word}: ${result.error}`);
         failed++;
         continue;
       }
@@ -136,13 +136,13 @@ async function fetchAndStoreDailyWords() {
         expiresAt: new Date(now.getTime() + retentionMs),
       });
 
-      console.log(`${progress} ✅ ${result.word}`);
+      console.log(`${progress} [OK] ${result.word}`);
       inserted++;
     } catch (err) {
       if (err.code === 11000) {
-        console.log(`${progress} ⏭️  ${meta.word} — already exists for ${today}`);
+        console.log(`${progress} [SKIP] ${meta.word} -- already exists for ${today}`);
       } else {
-        console.log(`${progress} ❌ ${meta.word}: ${err.message}`);
+        console.log(`${progress} [FAIL] ${meta.word}: ${err.message}`);
         failed++;
       }
     }
@@ -159,7 +159,7 @@ async function fetchAndStoreDailyWords() {
   await state.save();
 
   const total = await DailyWord.countDocuments();
-  console.log(`\n📚 Done: +${inserted} new, ${failed} failed. Total daily words in DB: ${total}`);
+  console.log(`\n[DONE] +${inserted} new, ${failed} failed. Total daily words in DB: ${total}`);
   console.log(`   Next batch will start at WORD_LIST[${newNextIndex}]\n`);
 }
 

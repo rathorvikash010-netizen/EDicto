@@ -690,6 +690,79 @@ h6 { font-size: 0.875rem; }
   font-weight: 600;
 }
 
+/* Badges container (difficulty + learned) */
+.word-card-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Difficulty Badge */
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.difficulty-easy {
+  background: rgba(46, 213, 115, 0.12);
+  color: #1B8A4A;
+}
+
+.difficulty-medium {
+  background: rgba(74, 144, 217, 0.12);
+  color: #3B82C4;
+}
+
+.difficulty-moderate {
+  background: rgba(255, 165, 2, 0.12);
+  color: #C47D00;
+}
+
+.difficulty-hard {
+  background: rgba(255, 111, 97, 0.12);
+  color: #D94F43;
+}
+
+.difficulty-expert {
+  background: rgba(155, 107, 255, 0.12);
+  color: #7B2FF2;
+}
+
+[data-theme="dark"] .difficulty-easy {
+  background: rgba(46, 213, 115, 0.15);
+  color: #5EE89C;
+}
+
+[data-theme="dark"] .difficulty-medium {
+  background: rgba(74, 144, 217, 0.15);
+  color: #6BB5F8;
+}
+
+[data-theme="dark"] .difficulty-moderate {
+  background: rgba(255, 165, 2, 0.15);
+  color: #FFB84D;
+}
+
+[data-theme="dark"] .difficulty-hard {
+  background: rgba(255, 111, 97, 0.15);
+  color: #FF7F73;
+}
+
+[data-theme="dark"] .difficulty-expert {
+  background: rgba(155, 107, 255, 0.15);
+  color: #B88DFF;
+}
+
 /* ========== WORD CARD FULL (compact) ========== */
 .word-card-full {
   background: var(--bg-card);

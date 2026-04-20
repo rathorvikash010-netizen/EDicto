@@ -1,3 +1,5 @@
+import { FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
+
 export default function StatCard({ icon, number, label, trend, trendDir = 'up', color = 'var(--accent-primary)', bgColor = 'var(--accent-primary-bg)' }) {
   return (
     <div className="stat-card">
@@ -10,7 +12,7 @@ export default function StatCard({ icon, number, label, trend, trendDir = 'up', 
       </div>
       {trend && (
         <span className={`stat-card-trend ${trendDir}`}>
-          {trendDir === 'up' ? '↑' : '↓'} {trend}
+          {trendDir === 'up' ? <FiTrendingUp size={12} style={{ verticalAlign: '-1px', marginRight: '3px' }} /> : <FiTrendingDown size={12} style={{ verticalAlign: '-1px', marginRight: '3px' }} />} {trend}
         </span>
       )}
     </div>

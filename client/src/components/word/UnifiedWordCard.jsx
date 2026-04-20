@@ -1,21 +1,29 @@
 /**
- * UnifiedWordCard — A single, reusable word card component used across all pages.
+ * UnifiedWordCard - A single, reusable word card component used across all pages.
  *
  * Variants:
- *   "explore"   — DailyWord explore grid (bookmark + revise buttons)
- *   "category"  — Categories page (expiry badge + bookmark + revise)
- *   "bookmark"  — Bookmarks page (date saved + remove)
- *   "revision"  — Revision page (date added + learned + remove)
+ *   "explore"   - DailyWord explore grid (bookmark + revise buttons)
+ *   "category"  - Categories page (expiry badge + bookmark + revise)
+ *   "bookmark"  - Bookmarks page (date saved + remove)
+ *   "revision"  - Revision page (date added + learned + remove)
  *
  * Props:
- *   word          — word data object (word, pronunciation, partOfSpeech, definition, example, etc.)
- *   variant       — "explore" | "category" | "bookmark" | "revision"
- *   daysLeft      — (category only) days until word expires
- *   className     — extra class names
+ *   word          - word data object (word, pronunciation, partOfSpeech, definition, example, etc.)
+ *   variant       - "explore" | "category" | "bookmark" | "revision"
+ *   daysLeft      - (category only) days until word expires
+ *   className     - extra class names
  */
 import { FiBookmark, FiRefreshCw, FiVolume2, FiTrash2, FiCheckCircle, FiClock } from 'react-icons/fi';
 import { useApp } from '../../context/AppContext';
 import usePronunciation from '../../hooks/usePronunciation';
+
+const DIFFICULTY_CONFIG = {
+  1: { label: 'Easy', className: 'difficulty-easy' },
+  2: { label: 'Medium', className: 'difficulty-medium' },
+  3: { label: 'Moderate', className: 'difficulty-moderate' },
+  4: { label: 'Hard', className: 'difficulty-hard' },
+  5: { label: 'Expert', className: 'difficulty-expert' },
+};
 
 export default function UnifiedWordCard({ word, variant = 'explore', daysLeft, className = '' }) {
   const {
@@ -38,6 +46,9 @@ export default function UnifiedWordCard({ word, variant = 'explore', daysLeft, c
     synonyms: word.synonyms || [],
     antonyms: word.antonyms || [],
   });
+
+  const difficultyLevel = word.difficulty || null;
+  const difficultyInfo = difficultyLevel ? DIFFICULTY_CONFIG[difficultyLevel] || null : null;
 
   const cardClass = [
     'word-card',
@@ -69,12 +80,20 @@ export default function UnifiedWordCard({ word, variant = 'explore', daysLeft, c
             <div className="word-card-pos">{word.partOfSpeech}</div>
           )}
         </div>
-        {/* Learned badge for revision variant */}
-        {variant === 'revision' && learned && (
-          <span className="word-card-learned-badge">
-            <FiCheckCircle size={14} /> Learned
-          </span>
-        )}
+        <div className="word-card-badges">
+          {/* Difficulty badge */}
+          {difficultyInfo && (
+            <span className={`difficulty-badge ${difficultyInfo.className}`}>
+              Lvl {difficultyLevel} - {difficultyInfo.label}
+            </span>
+          )}
+          {/* Learned badge for revision variant */}
+          {variant === 'revision' && learned && (
+            <span className="word-card-learned-badge">
+              <FiCheckCircle size={14} /> Learned
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Body: definition + example */}

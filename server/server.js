@@ -62,12 +62,12 @@ connectDB().then(async () => {
     );
     if (oldWordIndex) {
       await collection.dropIndex(oldWordIndex.name);
-      console.log('🔄 Dropped old unique index on "word" field (migrating to compound index)');
+      console.log('[MIGRATION] Dropped old unique index on "word" field (migrating to compound index)');
     }
   } catch (err) {
     // Collection might not exist yet — that's fine
     if (err.codeName !== 'NamespaceNotFound') {
-      console.log('⚠️  Index migration note:', err.message);
+      console.log('[WARN] Index migration note:', err.message);
     }
   }
 
@@ -81,17 +81,17 @@ connectDB().then(async () => {
 
   // ──── Cron: Fetch new daily words at midnight every day ────
   cron.schedule('0 0 * * *', async () => {
-    console.log('\n⏰ Midnight cron triggered: Fetching new daily words...');
+    console.log('\n[CRON] Midnight cron triggered: Fetching new daily words...');
     try {
       await fetchAndStoreDailyWords();
     } catch (err) {
-      console.error('❌ Cron fetch failed:', err.message);
+      console.error('[FAIL] Cron fetch failed:', err.message);
     }
   });
-  console.log('⏰ Daily word cron job scheduled (runs at midnight)');
+  console.log('[CRON] Daily word cron job scheduled (runs at midnight)');
 
   app.listen(PORT, () => {
-    console.log(`\n🚀 Edicto API running on port ${PORT} [${env.NODE_ENV}]`);
+    console.log(`\n[START] Edicto API running on port ${PORT} [${env.NODE_ENV}]`);
     console.log(`   https://edicto.onrender.com/api/health\n`);
   });
 });

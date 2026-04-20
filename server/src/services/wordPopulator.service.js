@@ -1,7 +1,7 @@
 /**
  * Word Populator Service
  * 
- * - On startup: fetches the FIRST 50 words from Free Dictionary API → stores in DB
+ * - On startup: fetches the FIRST 50 words from Free Dictionary API, stores in DB
  * - When user has seen all words: fetches the NEXT 50 from the list
  * - Words are fetched LIVE from https://dictionaryapi.dev/
  * - DB only caches the fetched data
@@ -18,10 +18,10 @@ const { WORD_LIST, BATCH_SIZE } = require('../constants/wordList');
  */
 async function populateWords() {
   const currentCount = await Word.countDocuments();
-  console.log(`\n📡 Word database check: ${currentCount} words currently in DB`);
+  console.log(`\n[CHECK] Word database check: ${currentCount} words currently in DB`);
 
   if (currentCount >= BATCH_SIZE) {
-    console.log(`✅ Already have ${currentCount} words (>= ${BATCH_SIZE}). Ready to go!\n`);
+    console.log(`[OK] Already have ${currentCount} words (>= ${BATCH_SIZE}). Ready to go!\n`);
     return;
   }
 
@@ -33,11 +33,11 @@ async function populateWords() {
   const toFetch = missing.slice(0, BATCH_SIZE - currentCount);
 
   if (toFetch.length === 0) {
-    console.log('✅ No new words to fetch.\n');
+    console.log('[OK] No new words to fetch.\n');
     return;
   }
 
-  console.log(`📥 Fetching ${toFetch.length} words from Free Dictionary API...\n`);
+  console.log(`[FETCH] Fetching ${toFetch.length} words from Free Dictionary API...\n`);
   await fetchAndSaveWords(toFetch);
 }
 
@@ -59,7 +59,7 @@ async function fetchNextBatch() {
 
   const FETCH_MORE_SIZE = 30;
   const toFetch = remaining.slice(0, FETCH_MORE_SIZE);
-  console.log(`\n📥 Fetching next batch: ${toFetch.length} words from Free Dictionary API...\n`);
+  console.log(`\n[FETCH] Fetching next batch: ${toFetch.length} words from Free Dictionary API...\n`);
 
   const result = await fetchAndSaveWords(toFetch);
   const total = await Word.countDocuments();
@@ -90,7 +90,7 @@ async function fetchAndSaveWords(wordItems) {
       });
 
       if (result.error) {
-        console.log(`${progress} ⚠️  ${meta.word}: ${result.error}`);
+        console.log(`${progress} [WARN] ${meta.word}: ${result.error}`);
         failed++;
         continue;
       }
@@ -99,13 +99,13 @@ async function fetchAndSaveWords(wordItems) {
       delete result.audioUrl;
 
       await Word.create(result);
-      console.log(`${progress} ✅ ${result.word} [${result.category}]`);
+      console.log(`${progress} [OK] ${result.word} [${result.category}]`);
       inserted++;
     } catch (err) {
       if (err.code === 11000) {
-        console.log(`${progress} ⏭️  ${meta.word} — already exists`);
+        console.log(`${progress} [SKIP] ${meta.word} -- already exists`);
       } else {
-        console.log(`${progress} ❌ ${meta.word}: ${err.message}`);
+        console.log(`${progress} [FAIL] ${meta.word}: ${err.message}`);
         failed++;
       }
     }
@@ -117,7 +117,7 @@ async function fetchAndSaveWords(wordItems) {
   }
 
   const total = await Word.countDocuments();
-  console.log(`\n📚 Done: +${inserted} new, ${failed} failed. Total: ${total} words\n`);
+  console.log(`\n[DONE] +${inserted} new, ${failed} failed. Total: ${total} words\n`);
 
   return { inserted, failed };
 }

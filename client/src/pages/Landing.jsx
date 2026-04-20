@@ -36,7 +36,7 @@ const features = [
 const stats = [
   { number: '2,500+', label: 'Vocabulary Words' },
   { number: '150K+', label: 'Active Learners' },
-  { number: '4.9★', label: 'User Rating' },
+  { number: '4.9/5', label: 'User Rating' },
 ];
 
 export default function Landing() {
@@ -67,7 +67,7 @@ export default function Landing() {
             </span>
           </div>
           <button className="btn btn-ghost" onClick={() => navigate('/login')} style={{ fontSize: '0.85rem' }}>
-            Sign In →
+            Sign In <FiArrowRight size={14} />
           </button>
         </div>
 

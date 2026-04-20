@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FiCheck, FiX } from 'react-icons/fi';
 
 export default function QuizCard({ question, questionNumber, total, onAnswer }) {
   const [selected, setSelected] = useState(null);
@@ -50,8 +51,8 @@ export default function QuizCard({ question, questionNumber, total, onAnswer }) 
       {answered && (
         <div className={`quiz-feedback ${selected === question.correctIndex ? 'correct' : 'wrong'}`}>
           {selected === question.correctIndex
-            ? '✓ Correct! Well done.'
-            : `✗ Incorrect. The answer is: ${question.options[question.correctIndex]}`}
+            ? <><FiCheck size={14} style={{ verticalAlign: '-2px', marginRight: '6px' }} />Correct! Well done.</>
+            : <><FiX size={14} style={{ verticalAlign: '-2px', marginRight: '6px' }} />Incorrect. The answer is: {question.options[question.correctIndex]}</>}
         </div>
       )}
     </div>
