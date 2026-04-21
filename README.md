@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>📖 Edicto</h1>
+  <h1>Edicto</h1>
   <p><strong>Your Intelligent Vocabulary Expansion & Tracking Companion.</strong></p>
   <p>
     <img src="https://img.shields.io/badge/React-19-blue.svg?style=for-the-badge&logo=react" alt="React 19" />
@@ -11,35 +11,35 @@
 
 <br />
 
-## 🌟 Overview
+## Overview
 **Edicto** is a full-stack MERN application built for continuous learners who want to actively expand their vocabulary. Far beyond a traditional dictionary, Edicto introduces learning through gamification, spaced reinforcement, and automated daily word discoveries. Make language learning a fun, effortless daily habit!
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- **🗓️ Daily Words:** Discover a new, curated word every midnight automatically (powered by `node-cron` & Free Dictionary API).
-- **🔎 Robust Search:** Look up words instantly, finding precise definitions, parts of speech, synonyms, and antonyms.
-- **🔖 Bookmarks:** Save intriguing words for later reference with a single click.
-- **🔄 Spaced Revision:** A dedicated Revision system tracks words you've learned and reinforces your memory at optimal intervals.
-- **🧠 Interactive Quizzes:** Test your retention with dynamic, randomized vocabulary quizzes based on your learned words.
-- **📊 Comprehensive Dashboard:** Beautiful visual data maps (via `recharts`) showing your learning streak, activity timeline, and quiz accuracy.
-- **🏆 Global Leaderboards:** Compete with top learners around the world.
-- **🌓 Dark/Light Mode Theme:** Built-in seamless Theme Context for eye comfort.
-- **🔒 Secure Authentication:** JWT-based robust authentication utilizing both Access and Refresh tokens stored in secure HTTP-only cookies.
+- ** Daily Words:** Discover a new, curated word every midnight automatically (powered by `node-cron` & Free Dictionary API).
+- ** Robust Search:** Look up words instantly, finding precise definitions, parts of speech, synonyms, and antonyms.
+- ** Bookmarks:** Save intriguing words for later reference with a single click.
+- ** Spaced Revision:** A dedicated Revision system tracks words you've learned and reinforces your memory at optimal intervals.
+- ** Interactive Quizzes:** Test your retention with dynamic, randomized vocabulary quizzes based on your learned words.
+- ** Comprehensive Dashboard:** Beautiful visual data maps (via `recharts`) showing your learning streak, activity timeline, and quiz accuracy.
+- ** Global Leaderboards:** Compete with top learners around the world.
+- ** Dark/Light Mode Theme:** Built-in seamless Theme Context for eye comfort.
+- ** Secure Authentication:** JWT-based robust authentication utilizing both Access and Refresh tokens stored in secure HTTP-only cookies.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
-### 💻 Client-Side (Frontend)
+###  Client-Side (Frontend)
 - **Framework:** React 19
 - **Bundler:** Vite 
 - **Routing:** React Router v7
 - **Data Visualization:** Recharts
 - **Icons & Styling:** React Icons, Modern Custom CSS Variables
 
-### ⚙️ Server-Side (Backend)
+###  Server-Side (Backend)
 - **Runtime:** Node.js
 - **Framework:** Express.js
 - **Database:** MongoDB (via Mongoose ORM)
@@ -49,7 +49,7 @@
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 Follow the steps below to set up Edicto locally for development and testing.
 
@@ -127,7 +127,7 @@ npm run dev
 
 ---
 
-## 🏗️ Project Structure Architecture
+##  Project Structure Architecture
 
 ### Client
 ```
@@ -159,7 +159,7 @@ server/
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are always welcome! 
 
@@ -171,5 +171,5 @@ Contributions are always welcome!
 
 ---
 
-## 📜 License
+##  License
 This project is open source and available under the [ISC License](LICENSE).
