@@ -27,21 +27,16 @@ export default function WordDetailModal({ word, onClose }) {
     antonyms: word.antonyms || [],
   });
 
-  // Close on Escape key + blur/unblur main content
+  // Close on Escape key
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', handleKey);
-    // Prevent body scroll while modal is open
     document.body.style.overflow = 'hidden';
-    // Blur only the main content area (not sidebar/navbar)
-    const mainContent = document.querySelector('.main-content');
-    if (mainContent) mainContent.classList.add('content-blurred');
     return () => {
       document.removeEventListener('keydown', handleKey);
       document.body.style.overflow = '';
-      if (mainContent) mainContent.classList.remove('content-blurred');
     };
   }, [onClose]);
 

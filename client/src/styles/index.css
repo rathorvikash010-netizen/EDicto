@@ -950,14 +950,6 @@ h6 { font-size: 0.875rem; }
 }
 
 /* ========== WORD DETAIL MODAL ========== */
-
-/* Blur only the main content area when modal is open */
-.main-content.content-blurred {
-  filter: blur(10px) brightness(0.85);
-  transition: filter 0.3s ease;
-  pointer-events: none;
-}
-
 .word-modal-overlay {
   position: fixed;
   inset: 0;
@@ -965,7 +957,7 @@ h6 { font-size: 0.875rem; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.45);
   padding: var(--space-xl);
   animation: fadeIn 0.2s ease-out;
 }
@@ -973,14 +965,14 @@ h6 { font-size: 0.875rem; }
 .word-modal-content {
   position: relative;
   width: 100%;
-  max-width: 600px;
-  max-height: 85vh;
+  max-width: 720px;
+  max-height: 88vh;
   overflow-y: auto;
   background: var(--bg-card);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-xl), 0 0 60px rgba(123, 47, 242, 0.08);
-  padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+  box-shadow: var(--shadow-xl), 0 0 80px rgba(123, 47, 242, 0.1);
+  padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
 }
 
 .word-modal-content::-webkit-scrollbar {
