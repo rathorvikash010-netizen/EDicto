@@ -940,6 +940,267 @@ h6 { font-size: 0.875rem; }
   flex-wrap: wrap;
 }
 
+/* ========== WORD CARD CLICKABLE ========== */
+.word-card-clickable {
+  cursor: pointer;
+}
+
+.word-card-clickable:active {
+  transform: scale(0.98);
+}
+
+/* ========== WORD DETAIL MODAL ========== */
+
+/* Blur only the main content area when modal is open */
+.main-content.content-blurred {
+  filter: blur(10px) brightness(0.85);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+.word-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  padding: var(--space-xl);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.word-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-xl), 0 0 60px rgba(123, 47, 242, 0.08);
+  padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+}
+
+.word-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.word-modal-content::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+
+.word-modal-gradient-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal), var(--accent-secondary));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* Back button (top-left) */
+.word-modal-back {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.word-modal-back:hover {
+  background: var(--accent-primary-bg);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary-border);
+  transform: translateX(-2px);
+}
+
+.word-modal-back:active {
+  transform: translateX(-4px) scale(0.97);
+}
+
+.word-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.word-modal-close:hover {
+  background: var(--accent-coral-bg);
+  color: var(--accent-coral);
+  border-color: var(--accent-coral);
+  transform: rotate(90deg);
+}
+
+.word-modal-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Modal reuses word-card-full inner element styles */
+.word-modal-content .word-title-section {
+  margin-bottom: var(--space-lg);
+}
+
+.word-modal-content .word-main-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.word-modal-content .word-phonetic {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: var(--space-xs);
+}
+
+.word-modal-content .word-audio-btn {
+  color: var(--accent-primary);
+  font-size: 1.1rem;
+  transition: all var(--transition-fast);
+}
+
+.word-modal-content .word-audio-btn:hover {
+  color: var(--accent-primary-light);
+  transform: scale(1.15);
+}
+
+.word-modal-content .word-pos-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--accent-primary-bg);
+  color: var(--accent-primary);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.word-modal-content .word-meaning-section {
+  margin: var(--space-md) 0;
+}
+
+.word-modal-content .word-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.word-modal-content .word-meaning-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.word-modal-content .word-example-box {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-md) 0;
+  border-left: 4px solid var(--accent-teal);
+}
+
+.word-modal-content .word-example-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.word-modal-content .word-synonyms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.word-modal-content .word-synonym-chip {
+  padding: 4px 12px;
+  background: var(--bg-secondary);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.word-modal-content .word-synonym-chip:hover {
+  background: var(--accent-primary-bg);
+  color: var(--accent-primary);
+}
+
+.word-modal-content .word-synonym-chip.antonym {
+  border: 1px solid var(--accent-coral-bg);
+}
+
+.word-modal-content .word-synonym-chip.antonym:hover {
+  background: var(--accent-coral-bg);
+  color: var(--accent-coral);
+}
+
+.word-modal-content .word-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-light);
+}
+
+/* Modal animation */
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.word-modal-content.animate-scale-in {
+  animation: modalScaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* ========== STAT CARD ========== */
 .stat-card {
   background: var(--bg-card);
