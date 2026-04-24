@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { CATEGORIES } = require('../constants');
 
 const dailyWordSchema = new mongoose.Schema(
   {
@@ -32,6 +33,17 @@ const dailyWordSchema = new mongoose.Schema(
     antonyms: {
       type: [String],
       default: [],
+    },
+    category: {
+      type: String,
+      enum: CATEGORIES,
+      default: 'GRE',
+    },
+    difficulty: {
+      type: Number,
+      min: 1,
+      max: 5,
+      default: null,
     },
     fetchDay: {
       type: String, // "YYYY-MM-DD" — the day this word was fetched

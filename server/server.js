@@ -72,8 +72,11 @@ connectDB().then(async () => {
   }
 
   // Auto-populate daily words from Free Dictionary API (idempotent — skips if already fetched today)
-  const { fetchAndStoreDailyWords } = require('./src/services/dailyWord.service');
+  const { fetchAndStoreDailyWords, backfillCategories } = require('./src/services/dailyWord.service');
   await fetchAndStoreDailyWords();
+
+  // Backfill category/difficulty for existing words that don't have them
+  await backfillCategories();
 
   // Also run the old populator for backwards compatibility with existing Word model
   const { populateWords } = require('./src/services/wordPopulator.service');

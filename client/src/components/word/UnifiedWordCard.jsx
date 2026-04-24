@@ -81,6 +81,12 @@ export default function UnifiedWordCard({ word, variant = 'explore', daysLeft, c
           )}
         </div>
         <div className="word-card-badges">
+          {/* Category badge (GRE, IELTS, Business) */}
+          {word.category && (
+            <span className={`category-badge category-${word.category.toLowerCase()}`}>
+              {word.category}
+            </span>
+          )}
           {/* Difficulty badge */}
           {difficultyInfo && (
             <span className={`difficulty-badge ${difficultyInfo.className}`}>

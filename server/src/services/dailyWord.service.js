@@ -131,6 +131,8 @@ async function fetchAndStoreDailyWords() {
         example: result.example || '',
         synonyms: result.synonyms || [],
         antonyms: [],
+        category: meta.category || 'GRE',
+        difficulty: meta.difficulty || null,
         fetchDay: today,
         fetchedAt: now,
         expiresAt: new Date(now.getTime() + retentionMs),
@@ -316,6 +318,41 @@ async function getFetchStatus() {
   };
 }
 
+/**
+ * Backfill category and difficulty for existing DailyWords that don't have them.
+ * Looks up each word in the WORD_LIST by name. Runs once on server start.
+ */
+async function backfillCategories() {
+  const wordsWithoutCategory = await DailyWord.find({
+    $or: [{ category: { $exists: false } }, { category: null }],
+  }).lean();
+
+  if (wordsWithoutCategory.length === 0) {
+    console.log('[BACKFILL] All daily words already have categories.');
+    return;
+  }
+
+  // Build a lookup map from WORD_LIST
+  const wordMap = new Map();
+  for (const item of WORD_LIST) {
+    wordMap.set(item.word.toLowerCase(), item);
+  }
+
+  let updated = 0;
+  for (const dw of wordsWithoutCategory) {
+    const meta = wordMap.get(dw.word.toLowerCase());
+    if (meta) {
+      await DailyWord.updateOne(
+        { _id: dw._id },
+        { $set: { category: meta.category, difficulty: meta.difficulty } }
+      );
+      updated++;
+    }
+  }
+
+  console.log(`[BACKFILL] Updated ${updated}/${wordsWithoutCategory.length} daily words with category/difficulty.`);
+}
+
 module.exports = {
   fetchAndStoreDailyWords,
   getDailyWords,
@@ -324,4 +361,5 @@ module.exports = {
   getWordOfTheDay,
   getDailyWordCount,
   getFetchStatus,
+  backfillCategories,
 };
