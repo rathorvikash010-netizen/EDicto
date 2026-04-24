@@ -1,42 +1,64 @@
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiBookOpen, FiTarget, FiEdit3, FiTrendingUp } from 'react-icons/fi';
+import { FiArrowRight, FiBookOpen, FiTarget, FiEdit3, FiTrendingUp, FiBookmark, FiRefreshCw, FiAward, FiZap, FiUsers } from 'react-icons/fi';
 import dictionaryBg from '../assets/dictionary-bg.png';
 
 const features = [
   {
     icon: <FiBookOpen />,
-    title: 'Daily Words',
-    desc: 'Learn a new carefully curated word every day with meanings, examples, and pronunciation.',
+    title: 'Word of the Day',
+    desc: 'Start each day with a handpicked word — complete with definition, pronunciation, examples, synonyms, and antonyms.',
     color: 'var(--accent-primary)',
     bg: 'var(--accent-primary-bg)',
   },
   {
-    icon: <FiTarget />,
+    icon: <FiRefreshCw />,
     title: 'Smart Revision',
-    desc: 'Spaced-repetition system ensures you review words at the optimal time for long-term memory.',
+    desc: 'Add words to your personal revision list and review them anytime. Mark words as "learned" when you\'ve mastered them.',
     color: 'var(--accent-teal)',
     bg: 'var(--accent-teal-bg)',
   },
   {
+    icon: <FiBookmark />,
+    title: 'Bookmark & Save',
+    desc: 'Save words you love to your personal library. Access your entire saved collection anytime, even after they expire from the daily feed.',
+    color: 'var(--accent-info)',
+    bg: 'var(--accent-info-bg)',
+  },
+  {
     icon: <FiEdit3 />,
-    title: 'Quiz Practice',
-    desc: 'Test your knowledge with interactive quizzes and get instant scoring and feedback.',
+    title: 'Interactive Quizzes',
+    desc: 'Test your knowledge with auto-generated quizzes based on your daily words. Get instant scores and track your accuracy over time.',
     color: 'var(--accent-warning)',
     bg: 'var(--accent-warning-bg)',
   },
   {
     icon: <FiTrendingUp />,
-    title: 'Track Progress',
-    desc: 'Monitor your learning journey with detailed stats, streaks, and weekly progress charts.',
+    title: 'Progress Dashboard',
+    desc: 'Visualize your learning journey with weekly activity charts, streaks, quiz performance, and detailed stats — all in one place.',
     color: 'var(--accent-secondary)',
     bg: 'rgba(228, 75, 194, 0.08)',
   },
+  {
+    icon: <FiAward />,
+    title: 'Leaderboard',
+    desc: 'Compete with fellow learners! Climb the ranks based on your learning streaks, quiz scores, and overall engagement.',
+    color: 'var(--accent-coral)',
+    bg: 'var(--accent-coral-bg)',
+  },
 ];
 
-const stats = [
-  { number: '2,500+', label: 'Vocabulary Words' },
-  { number: '150K+', label: 'Active Learners' },
-  { number: '4.9/5', label: 'User Rating' },
+const steps = [
+  { num: '01', title: 'Sign Up Free', desc: 'Create your account in seconds — no credit card needed.' },
+  { num: '02', title: 'Explore Daily Words', desc: 'Discover new curated words every day across GRE, IELTS, and Business categories.' },
+  { num: '03', title: 'Practice & Revise', desc: 'Bookmark words, add them to revision, and test yourself with quizzes.' },
+  { num: '04', title: 'Track & Grow', desc: 'Monitor your streaks, quiz accuracy, and weekly progress on your dashboard.' },
+];
+
+const audiences = [
+  { icon: <FiTarget />, title: 'GRE & GMAT Aspirants', desc: 'Build the advanced vocabulary you need to ace verbal sections.' },
+  { icon: <FiBookOpen />, title: 'IELTS & TOEFL Prep', desc: 'Expand your English word bank for higher band scores.' },
+  { icon: <FiUsers />, title: 'Professionals', desc: 'Elevate your business communication with richer vocabulary.' },
+  { icon: <FiZap />, title: 'Lifelong Learners', desc: 'Develop a daily habit of learning new words, just for the joy of it.' },
 ];
 
 export default function Landing() {
@@ -74,7 +96,7 @@ export default function Landing() {
         {/* Hero */}
         <div className="landing-hero">
           <div className="landing-badge animate-fade-in">
-            Your vocabulary companion
+            ✨ Your vocabulary companion
           </div>
 
           <h1 className="landing-title animate-fade-in-up stagger-1">
@@ -83,40 +105,79 @@ export default function Landing() {
           </h1>
 
           <p className="landing-subtitle animate-fade-in-up stagger-2">
-            Build a powerful vocabulary with daily words, smart revision, interactive quizzes, and progress tracking — designed for GRE, IELTS, and professional growth.
+            A smart vocabulary platform that delivers fresh words daily, helps you revise with purpose, quizzes you to reinforce memory, and tracks every step of your progress — built for GRE, IELTS, and beyond.
           </p>
 
           <div className="landing-cta-group animate-fade-in-up stagger-3">
             <button className="btn btn-primary btn-lg" onClick={() => navigate('/register')}>
-              Start Learning <FiArrowRight />
+              Start Learning Free <FiArrowRight />
             </button>
-            <button className="btn btn-secondary btn-lg" onClick={() => navigate('/categories')}>
-              Browse Words
+            <button className="btn btn-secondary btn-lg" onClick={() => navigate('/login')}>
+              Sign In
             </button>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="landing-stats animate-fade-in-up stagger-4">
-          {stats.map(stat => (
-            <div key={stat.label} className="landing-stat">
-              <div className="landing-stat-number">{stat.number}</div>
-              <div className="landing-stat-label">{stat.label}</div>
-            </div>
-          ))}
+        {/* How It Works */}
+        <div style={{ marginTop: '80px' }}>
+          <h2 className="landing-section-heading animate-fade-in-up">How It Works</h2>
+          <p className="landing-section-subheading animate-fade-in-up">Four simple steps to a stronger vocabulary</p>
+          <div className="landing-steps-grid">
+            {steps.map((step, i) => (
+              <div key={step.num} className={`landing-step-card animate-fade-in-up stagger-${i + 1}`}>
+                <div className="landing-step-num">{step.num}</div>
+                <h3 className="landing-step-title">{step.title}</h3>
+                <p className="landing-step-desc">{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Features */}
-        <div className="landing-features">
-          {features.map((feature, i) => (
-            <div key={feature.title} className={`landing-feature-card animate-fade-in-up stagger-${i + 1}`}>
-              <div className="landing-feature-icon" style={{ background: feature.bg, color: feature.color }}>
-                {feature.icon}
+        <div style={{ marginTop: '80px' }}>
+          <h2 className="landing-section-heading animate-fade-in-up">Everything You Need</h2>
+          <p className="landing-section-subheading animate-fade-in-up">Packed with tools to make vocabulary building effective and enjoyable</p>
+          <div className="landing-features">
+            {features.map((feature, i) => (
+              <div key={feature.title} className={`landing-feature-card animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}>
+                <div className="landing-feature-icon" style={{ background: feature.bg, color: feature.color }}>
+                  {feature.icon}
+                </div>
+                <h3 className="landing-feature-title">{feature.title}</h3>
+                <p className="landing-feature-desc">{feature.desc}</p>
               </div>
-              <h3 className="landing-feature-title">{feature.title}</h3>
-              <p className="landing-feature-desc">{feature.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Who is it for */}
+        <div style={{ marginTop: '80px' }}>
+          <h2 className="landing-section-heading animate-fade-in-up">Who Is Edicto For?</h2>
+          <p className="landing-section-subheading animate-fade-in-up">Whether you're preparing for exams or expanding your horizons</p>
+          <div className="landing-audience-grid">
+            {audiences.map((a, i) => (
+              <div key={a.title} className={`landing-audience-card animate-fade-in-up stagger-${i + 1}`}>
+                <div className="landing-audience-icon">{a.icon}</div>
+                <div>
+                  <h4 className="landing-audience-title">{a.title}</h4>
+                  <p className="landing-audience-desc">{a.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Final CTA */}
+        <div className="landing-final-cta animate-fade-in-up" style={{ marginTop: '80px' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '12px', letterSpacing: '-0.02em' }}>
+            Ready to <span className="text-gradient">expand your vocabulary?</span>
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
+            Join Edicto today and start your journey toward mastering words — one day at a time.
+          </p>
+          <button className="btn btn-primary btn-lg" onClick={() => navigate('/register')}>
+            Get Started — It's Free <FiArrowRight />
+          </button>
         </div>
 
         {/* Footer */}
