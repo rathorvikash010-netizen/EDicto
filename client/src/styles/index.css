@@ -959,13 +959,15 @@ h6 { font-size: 0.875rem; }
   justify-content: center;
   background: rgba(0, 0, 0, 0.45);
   padding: var(--space-xl);
+  /* Offset for sidebar so modal centers in content area */
+  padding-left: calc(var(--sidebar-width) + var(--space-xl));
   animation: fadeIn 0.2s ease-out;
 }
 
 .word-modal-content {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: 800px;
   max-height: 88vh;
   overflow-y: auto;
   background: var(--bg-card);
@@ -1827,6 +1829,11 @@ h6 { font-size: 0.875rem; }
 
   .page-container {
     padding: var(--space-lg);
+  }
+
+  /* Reset sidebar offset for modal on mobile */
+  .word-modal-overlay {
+    padding-left: var(--space-xl);
   }
 }
 
