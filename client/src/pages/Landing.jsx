@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiBookOpen, FiTarget, FiEdit3, FiTrendingUp, FiBookmark, FiRefreshCw, FiAward, FiZap, FiUsers } from 'react-icons/fi';
+import { FiArrowRight, FiBookOpen, FiTarget, FiEdit3, FiTrendingUp, FiBookmark, FiRefreshCw, FiAward } from 'react-icons/fi';
 import dictionaryBg from '../assets/dictionary-bg.png';
 
 const features = [
@@ -52,13 +52,6 @@ const steps = [
   { num: '02', title: 'Explore Daily Words', desc: 'Discover new curated words every day across GRE, IELTS, and Business categories.' },
   { num: '03', title: 'Practice & Revise', desc: 'Bookmark words, add them to revision, and test yourself with quizzes.' },
   { num: '04', title: 'Track & Grow', desc: 'Monitor your streaks, quiz accuracy, and weekly progress on your dashboard.' },
-];
-
-const audiences = [
-  { icon: <FiTarget />, title: 'GRE & GMAT Aspirants', desc: 'Build the advanced vocabulary you need to ace verbal sections.' },
-  { icon: <FiBookOpen />, title: 'IELTS & TOEFL Prep', desc: 'Expand your English word bank for higher band scores.' },
-  { icon: <FiUsers />, title: 'Professionals', desc: 'Elevate your business communication with richer vocabulary.' },
-  { icon: <FiZap />, title: 'Lifelong Learners', desc: 'Develop a daily habit of learning new words, just for the joy of it.' },
 ];
 
 export default function Landing() {
@@ -150,22 +143,6 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Who is it for */}
-        <div style={{ marginTop: '80px' }}>
-          <h2 className="landing-section-heading animate-fade-in-up">Who Is Edicto For?</h2>
-          <p className="landing-section-subheading animate-fade-in-up">Whether you're preparing for exams or expanding your horizons</p>
-          <div className="landing-audience-grid">
-            {audiences.map((a, i) => (
-              <div key={a.title} className={`landing-audience-card animate-fade-in-up stagger-${i + 1}`}>
-                <div className="landing-audience-icon">{a.icon}</div>
-                <div>
-                  <h4 className="landing-audience-title">{a.title}</h4>
-                  <p className="landing-audience-desc">{a.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Final CTA */}
         <div className="landing-final-cta animate-fade-in-up" style={{ marginTop: '80px' }}>
