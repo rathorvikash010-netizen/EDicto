@@ -2823,9 +2823,17 @@ h6 { font-size: 0.875rem; }
   box-shadow: var(--shadow-sm);
 }
 
+.profile-stat-card.profile-stat-clickable {
+  cursor: pointer;
+}
+
 .profile-stat-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.profile-stat-card.profile-stat-clickable:active {
+  transform: translateY(0) scale(0.97);
 }
 
 .profile-stat-icon {

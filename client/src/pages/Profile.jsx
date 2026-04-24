@@ -13,12 +13,12 @@ export default function Profile() {
     : 'N/A';
 
   const statItems = [
-    { icon: <FiBookmark />, number: bookmarkedWords.length, label: 'Bookmarked', bg: 'var(--accent-primary-bg)', color: 'var(--accent-primary)' },
-    { icon: <FiRefreshCw />, number: revisionWords.length, label: 'In Revision', bg: 'var(--accent-teal-bg)', color: 'var(--accent-teal)' },
-    { icon: <FiCheck />, number: stats.totalWordsLearned || 0, label: 'Learned', bg: 'var(--accent-success-bg)', color: 'var(--accent-success)' },
-    { icon: <FiEdit3 />, number: quizResults.length, label: 'Quizzes Taken', bg: 'var(--accent-warning-bg)', color: 'var(--accent-warning)' },
-    { icon: <FiTarget />, number: `${stats.quizAccuracy}%`, label: 'Quiz Accuracy', bg: 'var(--accent-coral-bg)', color: 'var(--accent-coral)' },
-    { icon: <FiTarget />, number: streak.count, label: 'Day Streak', bg: 'rgba(155,107,255,0.1)', color: 'var(--accent-primary)' },
+    { icon: <FiBookmark />, number: bookmarkedWords.length, label: 'Bookmarked', bg: 'var(--accent-primary-bg)', color: 'var(--accent-primary)', link: '/bookmarks' },
+    { icon: <FiRefreshCw />, number: revisionWords.length, label: 'In Revision', bg: 'var(--accent-teal-bg)', color: 'var(--accent-teal)', link: '/revision' },
+    { icon: <FiCheck />, number: stats.totalWordsLearned || 0, label: 'Learned', bg: 'var(--accent-success-bg)', color: 'var(--accent-success)', link: '/revision' },
+    { icon: <FiEdit3 />, number: quizResults.length, label: 'Quizzes Taken', bg: 'var(--accent-warning-bg)', color: 'var(--accent-warning)', link: '/quiz' },
+    { icon: <FiTarget />, number: `${stats.quizAccuracy}%`, label: 'Quiz Accuracy', bg: 'var(--accent-coral-bg)', color: 'var(--accent-coral)', link: '/quiz' },
+    { icon: <FiTarget />, number: streak.count, label: 'Day Streak', bg: 'rgba(155,107,255,0.1)', color: 'var(--accent-primary)', link: '/dashboard' },
   ];
 
   return (
@@ -58,7 +58,14 @@ export default function Profile() {
       </h3>
       <div className="profile-stats-grid animate-fade-in-up">
         {statItems.map((s, i) => (
-          <div key={i} className="profile-stat-card">
+          <div
+            key={i}
+            className="profile-stat-card profile-stat-clickable"
+            onClick={() => navigate(s.link)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && navigate(s.link)}
+          >
             <div className="profile-stat-icon" style={{ background: s.bg, color: s.color }}>{s.icon}</div>
             <div className="profile-stat-number">{s.number}</div>
             <div className="profile-stat-label">{s.label}</div>
