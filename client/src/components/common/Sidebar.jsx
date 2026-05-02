@@ -25,7 +25,7 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand">
+      <div className="sidebar-brand" onClick={() => navigate('/daily')} style={{ cursor: 'pointer' }}>
         <div className="sidebar-brand-icon">
           <FiBook />
         </div>

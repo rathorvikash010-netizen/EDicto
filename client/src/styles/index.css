@@ -3650,3 +3650,278 @@ h6 { font-size: 0.875rem; }
     display: none;
   }
 }
+
+/* ========== CLICKABLE SYNONYM / ANTONYM CHIPS ========== */
+.clickable-chip {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.clickable-chip:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: var(--shadow-sm);
+}
+
+.clickable-chip::after {
+  content: '↗';
+  font-size: 0.6em;
+  margin-left: 3px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.clickable-chip:hover::after {
+  opacity: 0.7;
+}
+
+.word-synonym-chip.clickable-chip:hover {
+  background: var(--accent-primary-bg);
+  border-color: var(--accent-primary-border);
+  color: var(--accent-primary);
+}
+
+.word-synonym-chip.antonym.clickable-chip:hover {
+  background: var(--accent-coral-bg);
+  border-color: rgba(255, 111, 97, 0.25);
+  color: var(--accent-coral);
+}
+
+/* ========== SPACED REPETITION — REVISION PAGE ========== */
+
+/* Stats bar */
+.revision-stats-bar {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.revision-stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  flex: 1;
+  min-width: 120px;
+}
+
+.revision-stat-due { color: var(--accent-coral); }
+.revision-stat-upcoming { color: var(--accent-primary); }
+.revision-stat-learned { color: var(--accent-success); }
+
+.revision-stat-num {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.revision-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Filter tabs */
+.revision-filter-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  padding: 4px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  width: fit-content;
+}
+
+.revision-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.revision-filter-tab:hover {
+  color: var(--text-primary);
+}
+
+.revision-filter-tab.active {
+  background: var(--bg-card);
+  color: var(--accent-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Review section below each card */
+.revision-card-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sr-review-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.sr-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-sm);
+}
+
+.sr-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-glass);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+}
+
+.sr-due-badge {
+  background: rgba(255, 111, 97, 0.08);
+  color: var(--accent-coral);
+  border-color: rgba(255, 111, 97, 0.2);
+}
+
+.sr-upcoming-badge {
+  background: var(--accent-teal-bg);
+  color: var(--accent-teal);
+  border-color: rgba(0, 196, 204, 0.2);
+}
+
+/* Review quality buttons */
+.sr-review-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sr-review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: var(--radius-xs);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+  flex: 1;
+  justify-content: center;
+  min-width: 60px;
+}
+
+.sr-review-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.review-btn-again {
+  background: rgba(255, 111, 97, 0.06);
+  color: var(--accent-coral);
+  border-color: rgba(255, 111, 97, 0.2);
+}
+
+.review-btn-again:hover:not(:disabled) {
+  background: rgba(255, 111, 97, 0.14);
+  transform: translateY(-1px);
+}
+
+.review-btn-hard {
+  background: rgba(255, 190, 11, 0.06);
+  color: #cc9600;
+  border-color: rgba(255, 190, 11, 0.2);
+}
+
+.review-btn-hard:hover:not(:disabled) {
+  background: rgba(255, 190, 11, 0.14);
+  transform: translateY(-1px);
+}
+
+.review-btn-good {
+  background: rgba(0, 199, 129, 0.06);
+  color: var(--accent-success);
+  border-color: rgba(0, 199, 129, 0.2);
+}
+
+.review-btn-good:hover:not(:disabled) {
+  background: rgba(0, 199, 129, 0.14);
+  transform: translateY(-1px);
+}
+
+.review-btn-easy {
+  background: rgba(123, 47, 242, 0.06);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary-border);
+}
+
+.review-btn-easy:hover:not(:disabled) {
+  background: rgba(123, 47, 242, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ─── Dark mode SR styles ─── */
+[data-theme="dark"] .revision-stats-bar .revision-stat-item {
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .revision-filter-tabs {
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .sr-review-section {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .review-btn-hard {
+  color: var(--accent-warning);
+}
+
+/* ─── Mobile adjustments ─── */
+@media (max-width: 480px) {
+  .revision-stats-bar {
+    flex-direction: column;
+  }
+
+  .revision-filter-tabs {
+    width: 100%;
+  }
+
+  .revision-filter-tab {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    padding: 8px 8px;
+    font-size: 0.78rem;
+  }
+
+  .sr-review-buttons {
+    flex-wrap: nowrap;
+  }
+
+  .sr-review-btn {
+    padding: 5px 6px;
+    font-size: 0.68rem;
+  }
+}

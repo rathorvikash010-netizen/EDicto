@@ -86,7 +86,32 @@ export default function WordDetail() {
             <div className="word-section-label">Synonyms</div>
             <div className="word-synonyms">
               {word.synonyms.map(syn => (
-                <span key={syn} className="word-synonym-chip">{syn}</span>
+                <span
+                  key={syn}
+                  className="word-synonym-chip clickable-chip"
+                  onClick={() => navigate(`/search?q=${encodeURIComponent(syn)}`)}
+                  title={`Look up "${syn}"`}
+                >
+                  {syn}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {word.antonyms && word.antonyms.length > 0 && (
+          <div style={{ marginTop: 'var(--space-md)' }}>
+            <div className="word-section-label">Antonyms</div>
+            <div className="word-synonyms">
+              {word.antonyms.map(ant => (
+                <span
+                  key={ant}
+                  className="word-synonym-chip antonym clickable-chip"
+                  onClick={() => navigate(`/search?q=${encodeURIComponent(ant)}`)}
+                  title={`Look up "${ant}"`}
+                >
+                  {ant}
+                </span>
               ))}
             </div>
           </div>

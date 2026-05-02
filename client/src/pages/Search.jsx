@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import * as api from '../services/api';
 import { useApp } from '../context/AppContext';
 import { FiBookmark, FiRefreshCw, FiVolume2, FiSearch, FiAlertCircle, FiBookOpen } from 'react-icons/fi';
@@ -9,6 +9,7 @@ export default function Search() {
   const { isBookmarked, isInRevision, toggleBookmark, toggleRevision } = useApp();
   const { speak, speaking } = usePronunciation();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -122,7 +123,14 @@ export default function Search() {
               <div className="word-section-label">Synonyms</div>
               <div className="word-synonyms">
                 {result.synonyms.map(syn => (
-                  <span key={syn} className="word-synonym-chip">{syn}</span>
+                  <span
+                    key={syn}
+                    className="word-synonym-chip clickable-chip"
+                    onClick={() => navigate(`/search?q=${encodeURIComponent(syn)}`)}
+                    title={`Look up "${syn}"`}
+                  >
+                    {syn}
+                  </span>
                 ))}
               </div>
             </div>
@@ -133,7 +141,14 @@ export default function Search() {
               <div className="word-section-label">Antonyms</div>
               <div className="word-synonyms">
                 {result.antonyms.map(ant => (
-                  <span key={ant} className="word-synonym-chip antonym">{ant}</span>
+                  <span
+                    key={ant}
+                    className="word-synonym-chip antonym clickable-chip"
+                    onClick={() => navigate(`/search?q=${encodeURIComponent(ant)}`)}
+                    title={`Look up "${ant}"`}
+                  >
+                    {ant}
+                  </span>
                 ))}
               </div>
             </div>

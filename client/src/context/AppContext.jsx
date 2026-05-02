@@ -258,6 +258,33 @@ export function AppProvider({ children }) {
   }, [isAuthenticated, addToast, refreshAllStats]);
 
   /**
+   * Review a word with spaced repetition quality.
+   * quality: 0=again, 1=hard, 2=good, 3=easy
+   */
+  const reviewWord = useCallback(async (wordText, quality) => {
+    if (!isAuthenticated) return null;
+
+    try {
+      const res = await api.revision.review(wordText, quality);
+      // Update local state with new review data
+      setRevisionWords((prev) =>
+        prev.map((rw) =>
+          rw.word.toLowerCase() === wordText.toLowerCase()
+            ? { ...rw, interval: res.data.interval, nextReview: res.data.nextReview, reviewCount: res.data.reviewCount }
+            : rw
+        )
+      );
+      addToast(res.message || `Reviewed! Next in ${res.data.interval} day${res.data.interval !== 1 ? 's' : ''}`, 'success');
+      refreshAllStats();
+      return res.data;
+    } catch (err) {
+      console.error('Review failed:', err);
+      addToast('Failed to record review', 'warning');
+      return null;
+    }
+  }, [isAuthenticated, addToast, refreshAllStats]);
+
+  /**
    * Check if a word is bookmarked (by word text).
    */
   const isBookmarked = useCallback((wordText) => {
@@ -330,6 +357,7 @@ export function AppProvider({ children }) {
     toggleBookmark,
     toggleRevision,
     markWordLearned,
+    reviewWord,
     isBookmarked,
     isInRevision,
     isLearned,

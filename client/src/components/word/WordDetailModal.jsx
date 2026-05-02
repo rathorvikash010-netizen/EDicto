@@ -4,6 +4,7 @@
  * modal with a blurred backdrop. Closes on backdrop click, Escape key, or close button.
  */
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiX, FiArrowLeft, FiBookmark, FiRefreshCw, FiVolume2 } from 'react-icons/fi';
 import { useApp } from '../../context/AppContext';
 import usePronunciation from '../../hooks/usePronunciation';
@@ -12,6 +13,7 @@ export default function WordDetailModal({ word, onClose }) {
   const { toggleBookmark, toggleRevision, isBookmarked, isInRevision } = useApp();
   const { speak, speaking } = usePronunciation();
   const overlayRef = useRef(null);
+  const navigate = useNavigate();
 
   const wordText = word.word || '';
   const bookmarked = isBookmarked(wordText);
@@ -43,6 +45,11 @@ export default function WordDetailModal({ word, onClose }) {
   // Close on backdrop click
   const handleOverlayClick = (e) => {
     if (e.target === overlayRef.current) onClose();
+  };
+
+  const handleChipClick = (chipWord) => {
+    onClose();
+    navigate(`/search?q=${encodeURIComponent(chipWord)}`);
   };
 
   const definition = word.definition || word.meaning || '';
@@ -117,7 +124,14 @@ export default function WordDetailModal({ word, onClose }) {
             <div className="word-section-label">Synonyms</div>
             <div className="word-synonyms">
               {word.synonyms.map(syn => (
-                <span key={syn} className="word-synonym-chip">{syn}</span>
+                <span
+                  key={syn}
+                  className="word-synonym-chip clickable-chip"
+                  onClick={() => handleChipClick(syn)}
+                  title={`Look up "${syn}"`}
+                >
+                  {syn}
+                </span>
               ))}
             </div>
           </div>
@@ -129,7 +143,14 @@ export default function WordDetailModal({ word, onClose }) {
             <div className="word-section-label">Antonyms</div>
             <div className="word-synonyms">
               {word.antonyms.map(ant => (
-                <span key={ant} className="word-synonym-chip antonym">{ant}</span>
+                <span
+                  key={ant}
+                  className="word-synonym-chip antonym clickable-chip"
+                  onClick={() => handleChipClick(ant)}
+                  title={`Look up "${ant}"`}
+                >
+                  {ant}
+                </span>
               ))}
             </div>
           </div>
@@ -156,3 +177,4 @@ export default function WordDetailModal({ word, onClose }) {
     </div>
   );
 }
+

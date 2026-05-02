@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import * as api from '../services/api';
 import { FiZap, FiChevronRight, FiChevronLeft, FiVolume2, FiBookmark, FiRefreshCw, FiBookOpen, FiInbox } from 'react-icons/fi';
@@ -11,6 +12,7 @@ export default function DailyWord() {
     streak, loading, toggleBookmark, toggleRevision, isBookmarked, isInRevision,
   } = useApp();
   const { speak, speaking } = usePronunciation();
+  const navigate = useNavigate();
 
   const [wordOfDay, setWordOfDay] = useState(null);
   const [wotdLoading, setWotdLoading] = useState(true);
@@ -131,7 +133,32 @@ export default function DailyWord() {
               <div className="word-section-label">Synonyms</div>
               <div className="word-synonyms">
                 {wordOfDay.synonyms.map(syn => (
-                  <span key={syn} className="word-synonym-chip">{syn}</span>
+                  <span
+                    key={syn}
+                    className="word-synonym-chip clickable-chip"
+                    onClick={() => navigate(`/search?q=${encodeURIComponent(syn)}`)}
+                    title={`Look up "${syn}"`}
+                  >
+                    {syn}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {wordOfDay.antonyms && wordOfDay.antonyms.length > 0 && (
+            <div style={{ marginTop: 'var(--space-md)' }}>
+              <div className="word-section-label">Antonyms</div>
+              <div className="word-synonyms">
+                {wordOfDay.antonyms.map(ant => (
+                  <span
+                    key={ant}
+                    className="word-synonym-chip antonym clickable-chip"
+                    onClick={() => navigate(`/search?q=${encodeURIComponent(ant)}`)}
+                    title={`Look up "${ant}"`}
+                  >
+                    {ant}
+                  </span>
                 ))}
               </div>
             </div>
