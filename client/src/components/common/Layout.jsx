@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import BottomNav from './BottomNav';
 import ToastContainer from './ToastNotification';
+import AnimatedBackground from './AnimatedBackground';
 import { useApp } from '../../context/AppContext';
 
 export default function Layout() {
@@ -16,6 +17,7 @@ export default function Layout() {
 
   return (
     <div className="app-wrapper">
+      <AnimatedBackground variant="ambient" />
       <Sidebar />
       <Navbar />
       <main className="main-content">

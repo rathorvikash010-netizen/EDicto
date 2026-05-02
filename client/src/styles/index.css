@@ -3274,3 +3274,379 @@ h6 { font-size: 0.875rem; }
     font-size: 0.82rem;
   }
 }
+
+/* ========== ANIMATED BACKGROUND SYSTEM ========== */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.animated-bg-landing {
+  position: absolute;
+}
+
+.animated-bg-auth {
+  position: fixed;
+}
+
+.animated-bg-ambient {
+  position: fixed;
+  opacity: 0.7;
+}
+
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Floating Orbs ─── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.orb-1 {
+  animation: orbFloat1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+  animation: orbFloat2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+  animation: orbFloat3 20s ease-in-out infinite;
+}
+
+.orb-4 {
+  animation: orbFloat4 25s ease-in-out infinite;
+}
+
+.orb-5 {
+  animation: orbFloat5 16s ease-in-out infinite;
+}
+
+.orb-ambient-1 {
+  animation: orbFloat1 30s ease-in-out infinite;
+}
+
+.orb-ambient-2 {
+  animation: orbFloat2 35s ease-in-out infinite;
+}
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(40px, -30px) scale(1.05); }
+  50% { transform: translate(-20px, 50px) scale(0.95); }
+  75% { transform: translate(30px, 20px) scale(1.02); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-50px, 30px) scale(1.08); }
+  50% { transform: translate(30px, -40px) scale(0.92); }
+  75% { transform: translate(-20px, -20px) scale(1.04); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(60px, 40px) scale(1.06); }
+  66% { transform: translate(-40px, -30px) scale(0.94); }
+}
+
+@keyframes orbFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-30px, -50px) scale(1.1); }
+  40% { transform: translate(50px, 20px) scale(0.9); }
+  60% { transform: translate(-20px, 40px) scale(1.05); }
+  80% { transform: translate(30px, -30px) scale(0.95); }
+}
+
+@keyframes orbFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -40px) scale(1.12); }
+}
+
+/* ─── Landing overlay updated for animated bg ─── */
+.landing-page .landing-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.75) 40%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+/* ─── Enhanced Glassmorphism for Cards (with animated bg) ─── */
+.word-card-full,
+.card,
+.auth-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ─── Shimmer line on section headers ─── */
+.section-title {
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal));
+  border-radius: 2px;
+  animation: shimmerLine 3s ease-in-out infinite;
+}
+
+@keyframes shimmerLine {
+  0%, 100% { width: 40px; opacity: 0.8; }
+  50% { width: 70px; opacity: 1; }
+}
+
+/* ─── Glowing hover effects on interactive cards ─── */
+.landing-feature-card {
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-feature-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(123, 47, 242, 0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.landing-feature-card:hover::before {
+  opacity: 1;
+}
+
+.landing-feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(123, 47, 242, 0.08);
+}
+
+/* ─── Step card number pulse ─── */
+.landing-step-num {
+  position: relative;
+}
+
+.landing-step-num::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+  animation: numPulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes numPulse {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.3; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* ─── Streak banner glow animation ─── */
+.page-container > .animate-fade-in:first-child {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-container > .animate-fade-in:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(123, 47, 242, 0.05), transparent);
+  animation: streakShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes streakShimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ─── Quiz start page animation ─── */
+.page-container .animate-scale-in {
+  position: relative;
+}
+
+/* ─── Word card shine effect on hover ─── */
+.word-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.word-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(123, 47, 242, 0.03), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.word-card:hover::after {
+  left: 150%;
+}
+
+/* ─── Stat card glow on hover ─── */
+.stat-card:hover,
+.profile-stat-card:hover {
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(123, 47, 242, 0.06);
+}
+
+/* ─── Auth card floating effect ─── */
+.auth-card {
+  animation: authFloat 6s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes authFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.005); }
+}
+
+/* ─── Button micro-interaction ─── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-primary:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ─── Navbar glassmorphism enhancement ─── */
+.navbar {
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+
+/* ─── Sidebar glassmorphism ─── */
+.sidebar {
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
+/* ─── Bottom nav glassmorphism ─── */
+.bottom-nav {
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+
+/* ========== DARK MODE — ANIMATED BG ========== */
+[data-theme="dark"] .animated-bg-ambient {
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .landing-page .landing-bg-overlay {
+  background: linear-gradient(180deg,
+    rgba(13, 12, 29, 0.5) 0%,
+    rgba(13, 12, 29, 0.75) 40%,
+    rgba(13, 12, 29, 0.95) 100%
+  );
+}
+
+[data-theme="dark"] .orb {
+  filter: blur(80px);
+}
+
+[data-theme="dark"] .landing-feature-card::before {
+  background: radial-gradient(circle, rgba(155, 107, 255, 0.06) 0%, transparent 60%);
+}
+
+[data-theme="dark"] .landing-feature-card:hover {
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(155, 107, 255, 0.12);
+}
+
+[data-theme="dark"] .word-card::after {
+  background: linear-gradient(90deg, transparent, rgba(155, 107, 255, 0.05), transparent);
+}
+
+[data-theme="dark"] .stat-card:hover,
+[data-theme="dark"] .profile-stat-card:hover {
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(155, 107, 255, 0.1);
+}
+
+[data-theme="dark"] .section-title::after {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal));
+}
+
+[data-theme="dark"] .page-container > .animate-fade-in:first-child::after {
+  background: linear-gradient(90deg, transparent, rgba(155, 107, 255, 0.06), transparent);
+}
+
+/* ─── Reduce motion for accessibility ─── */
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .orb-ambient-1,
+  .orb-ambient-2,
+  .auth-card {
+    animation: none !important;
+  }
+
+  .landing-feature-card::before,
+  .word-card::after,
+  .page-container > .animate-fade-in:first-child::after,
+  .section-title::after {
+    animation: none !important;
+  }
+
+  .particle-canvas {
+    display: none;
+  }
+}

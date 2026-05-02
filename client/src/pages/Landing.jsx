@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiBookOpen, FiTarget, FiEdit3, FiTrendingUp, FiBookmark, FiRefreshCw, FiAward, FiZap, FiUsers } from 'react-icons/fi';
-import dictionaryBg from '../assets/dictionary-bg.png';
+import AnimatedBackground from '../components/common/AnimatedBackground';
 
 const features = [
   {
@@ -66,10 +66,8 @@ export default function Landing() {
 
   return (
     <div className="landing-page">
-      <div className="landing-bg">
-        <img src={dictionaryBg} alt="" />
-        <div className="landing-bg-overlay" />
-      </div>
+      <AnimatedBackground variant="landing" />
+      <div className="landing-bg-overlay" />
 
       <div className="landing-content">
         {/* Header */}

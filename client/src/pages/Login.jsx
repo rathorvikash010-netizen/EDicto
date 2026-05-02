@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FiMail, FiLock, FiLogIn, FiBookOpen } from 'react-icons/fi';
+import AnimatedBackground from '../components/common/AnimatedBackground';
 
 export default function Login() {
   const { login } = useAuth();
@@ -27,6 +28,7 @@ export default function Login() {
 
   return (
     <div className="auth-page">
+      <AnimatedBackground variant="auth" />
       <div className="auth-card animate-scale-in">
         <div className="auth-header">
           <div className="auth-logo">
