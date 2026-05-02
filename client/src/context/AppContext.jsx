@@ -142,26 +142,39 @@ export function AppProvider({ children }) {
   const toggleBookmark = useCallback(async (wordData) => {
     if (!isAuthenticated) return;
 
-    try {
-      const isCurrentlyBookmarked = bookmarkedWords.some(
-        (bw) => bw.word.toLowerCase() === wordData.word.toLowerCase()
-      );
+    const isCurrentlyBookmarked = bookmarkedWords.some(
+      (bw) => bw.word.toLowerCase() === wordData.word.toLowerCase()
+    );
 
+    // Optimistic update — instant UI feedback
+    if (isCurrentlyBookmarked) {
+      setBookmarkedWords((prev) =>
+        prev.filter((bw) => bw.word.toLowerCase() !== wordData.word.toLowerCase())
+      );
+      addToast(`"${wordData.word}" unbookmarked`, 'info');
+    } else {
+      setBookmarkedWords((prev) => [...prev, wordData]);
+      addToast(`"${wordData.word}" bookmarked`, 'success');
+    }
+
+    // Background API call — revert on failure
+    try {
       if (isCurrentlyBookmarked) {
         await api.bookmarks.remove(wordData.word);
-        setBookmarkedWords((prev) =>
-          prev.filter((bw) => bw.word.toLowerCase() !== wordData.word.toLowerCase())
-        );
-        addToast(`"${wordData.word}" unbookmarked`, 'info');
       } else {
         await api.bookmarks.add(wordData);
-        refreshBookmarks();
-        addToast(`"${wordData.word}" bookmarked`, 'success');
       }
-
       refreshAllStats();
     } catch (err) {
       console.error('Bookmark toggle failed:', err);
+      // Revert optimistic update
+      if (isCurrentlyBookmarked) {
+        refreshBookmarks();
+      } else {
+        setBookmarkedWords((prev) =>
+          prev.filter((bw) => bw.word.toLowerCase() !== wordData.word.toLowerCase())
+        );
+      }
       addToast('Failed to update bookmark', 'warning');
     }
   }, [isAuthenticated, bookmarkedWords, addToast, refreshAllStats]);
@@ -172,26 +185,39 @@ export function AppProvider({ children }) {
   const toggleRevision = useCallback(async (wordData) => {
     if (!isAuthenticated) return;
 
-    try {
-      const isCurrentlyInRevision = revisionWords.some(
-        (rw) => rw.word.toLowerCase() === wordData.word.toLowerCase()
-      );
+    const isCurrentlyInRevision = revisionWords.some(
+      (rw) => rw.word.toLowerCase() === wordData.word.toLowerCase()
+    );
 
+    // Optimistic update — instant UI feedback
+    if (isCurrentlyInRevision) {
+      setRevisionWords((prev) =>
+        prev.filter((rw) => rw.word.toLowerCase() !== wordData.word.toLowerCase())
+      );
+      addToast(`"${wordData.word}" removed from revision`, 'info');
+    } else {
+      setRevisionWords((prev) => [...prev, wordData]);
+      addToast(`"${wordData.word}" added to revision list`, 'success');
+    }
+
+    // Background API call — revert on failure
+    try {
       if (isCurrentlyInRevision) {
         await api.revision.remove(wordData.word);
-        setRevisionWords((prev) =>
-          prev.filter((rw) => rw.word.toLowerCase() !== wordData.word.toLowerCase())
-        );
-        addToast(`"${wordData.word}" removed from revision`, 'info');
       } else {
         await api.revision.add(wordData);
-        refreshRevision();
-        addToast(`"${wordData.word}" added to revision list`, 'success');
       }
-
       refreshAllStats();
     } catch (err) {
       console.error('Revision toggle failed:', err);
+      // Revert optimistic update
+      if (isCurrentlyInRevision) {
+        refreshRevision();
+      } else {
+        setRevisionWords((prev) =>
+          prev.filter((rw) => rw.word.toLowerCase() !== wordData.word.toLowerCase())
+        );
+      }
       addToast('Failed to update revision', 'warning');
     }
   }, [isAuthenticated, revisionWords, addToast, refreshAllStats]);
@@ -202,21 +228,31 @@ export function AppProvider({ children }) {
   const markWordLearned = useCallback(async (wordText) => {
     if (!isAuthenticated) return;
 
+    // Optimistic update — instant UI feedback
+    setRevisionWords((prev) =>
+      prev.map((rw) =>
+        rw.word.toLowerCase() === wordText.toLowerCase()
+          ? { ...rw, isLearned: true }
+          : rw
+      )
+    );
+    addToast(`"${wordText}" marked as learned!`, 'success');
+
+    // Background API call — revert on failure
     try {
       await api.revision.markLearned(wordText);
-      // Update local revision state to reflect learned status
+      refreshLearnedWords();
+      refreshAllStats();
+    } catch (err) {
+      console.error('Mark learned failed:', err);
+      // Revert optimistic update
       setRevisionWords((prev) =>
         prev.map((rw) =>
           rw.word.toLowerCase() === wordText.toLowerCase()
-            ? { ...rw, isLearned: true }
+            ? { ...rw, isLearned: false }
             : rw
         )
       );
-      refreshLearnedWords();
-      refreshAllStats();
-      addToast(`"${wordText}" marked as learned!`, 'success');
-    } catch (err) {
-      console.error('Mark learned failed:', err);
       addToast('Failed to mark as learned', 'warning');
     }
   }, [isAuthenticated, addToast, refreshAllStats]);
