@@ -24,4 +24,22 @@ const searchWord = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { searchWord };
+/**
+ * GET /api/search/suggest?q=ephe
+ * Returns up to 5 word suggestions for autocomplete.
+ */
+const suggestWords = asyncHandler(async (req, res) => {
+  const { q } = req.query;
+
+  if (!q || q.trim().length < 2) {
+    return ApiResponse.success(res, { data: [] });
+  }
+
+  const suggestions = await searchService.suggestWords(q.trim());
+
+  ApiResponse.success(res, {
+    data: suggestions,
+  });
+});
+
+module.exports = { searchWord, suggestWords };

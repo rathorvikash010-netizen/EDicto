@@ -119,6 +119,7 @@ export const dailyWords = {
 // ──── Search ────
 export const search = {
   query: (q) => request(`/search?q=${encodeURIComponent(q)}`),
+  suggest: (q) => request(`/search/suggest?q=${encodeURIComponent(q)}`),
 };
 
 // ──── Bookmarks (new — full word data) ────

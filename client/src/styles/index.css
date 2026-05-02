@@ -401,6 +401,101 @@ h6 { font-size: 0.875rem; }
   box-shadow: var(--shadow-glow);
 }
 
+/* Search wrapper — positions the suggestions dropdown */
+.navbar-search-wrapper {
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+}
+
+/* ─── Suggestions Dropdown ─── */
+.search-suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  overflow: hidden;
+  animation: suggestSlideIn 0.15s ease-out;
+}
+
+@keyframes suggestSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.search-suggestion-item:hover,
+.search-suggestion-item.active {
+  background: var(--accent-primary-bg);
+}
+
+.search-suggestion-item.active {
+  color: var(--accent-primary);
+}
+
+.search-suggestion-item + .search-suggestion-item {
+  border-top: 1px solid var(--border-light);
+}
+
+.suggestion-icon {
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+
+.search-suggestion-item.active .suggestion-icon,
+.search-suggestion-item:hover .suggestion-icon {
+  color: var(--accent-primary);
+}
+
+.suggestion-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion-text strong {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+/* Dark mode suggestion dropdown */
+[data-theme="dark"] .search-suggestions-dropdown {
+  background: var(--bg-card);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .search-suggestion-item:hover,
+[data-theme="dark"] .search-suggestion-item.active {
+  background: rgba(123, 47, 242, 0.1);
+}
+
 /* ========== SIDEBAR ========== */
 .sidebar {
   position: fixed;

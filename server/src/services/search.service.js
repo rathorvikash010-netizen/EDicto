@@ -6,6 +6,35 @@
  */
 
 const API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en';
+const SUGGEST_API = 'https://api.datamuse.com/sug';
+
+/**
+ * Get autocomplete suggestions for a partial word.
+ * Uses the Datamuse suggestion API — fast and doesn't require the word to exist in our DB.
+ * Returns up to 5 suggestions.
+ */
+async function suggestWords(prefix) {
+  if (!prefix || prefix.trim().length < 2) {
+    return [];
+  }
+
+  try {
+    const url = `${SUGGEST_API}?s=${encodeURIComponent(prefix.trim())}&max=5`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+
+    // Datamuse returns [{ word: "...", score: N }, ...]
+    return data.map((item) => item.word).slice(0, 5);
+  } catch (err) {
+    console.error('Suggestion fetch failed:', err.message);
+    return [];
+  }
+}
 
 /**
  * Search for a word from the Free Dictionary API.
@@ -138,4 +167,5 @@ function parseSearchResult(apiData, originalWord) {
   };
 }
 
-module.exports = { searchWord };
+module.exports = { searchWord, suggestWords };
+
